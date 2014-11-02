@@ -1,11 +1,6 @@
 zstyle :compinstall filename '~/.zshrc'
 
 
-# number of lines kept in history
-export HISTSIZE=10000
-# number of lines saved in the history after logout
-export SAVEHIST=10000 
-
 # emacs style key binding
 bindkey -e
 # backward delete
@@ -19,12 +14,12 @@ compinit
 # End of lines added by compinstall
 
 #Disable core dumps
-limit coredumpsize 0 
+limit coredumpsize 0
 
 #......
 setopt AUTO_LIST
 setopt AUTO_MENU
-setopt MENU_COMPLETE 
+setopt MENU_COMPLETE
 
 autoload -U compinit
 compinit
@@ -54,7 +49,7 @@ zstyle ':completion:*:*:default' force-list always
 export ZLSCOLORS="${LS_COLORS}"
 zmodload  zsh/complist
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31' 
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
@@ -74,9 +69,7 @@ zstyle ':completion:*:messages' format $'\e[01;35m -- %d --\e[0m'
 zstyle ':completion:*:warnings' format $'\e[01;31m -- No Matches Found --\e[0m'
 
 # command alias
-alias ls='ls -F --color=auto' 
-alias ll='ls -lh'
-alias grep='grep --color=auto' 
+alias grep='grep --color=auto'
 alias ec='emacsclient -n -a emacs'
 alias tmx='tmux attach'
 alias space='du ~/ -sh'
@@ -126,14 +119,6 @@ function precmd {
     PR_FILLBAR="\${(l.(($TERMWIDTH - ($promptsize + $pwdsize)))..${PR_HBAR}.)}"
     fi
 
-    ###
-    # Get APM info.
-
-    if which ibam > /dev/null; then
-    PR_APM_RESULT=`ibam --percentbattery`
-    elif which apm > /dev/null; then
-    PR_APM_RESULT=`apm`
-    fi
 }
 
 setopt extended_glob
@@ -202,17 +187,6 @@ setprompt () {
     fi
 
     ###
-    # APM detection
-
-    if which ibam > /dev/null; then
-    PR_APM='$PR_RED${${PR_APM_RESULT[(f)1]}[(w)-2]}%%(${${PR_APM_RESULT[(f)3]}[(w)-1]})$PR_LIGHT_BLUE:'
-    elif which apm > /dev/null; then
-    PR_APM='$PR_RED${PR_APM_RESULT[(w)5,(w)6]/\% /%%}$PR_LIGHT_BLUE:'
-    else
-    PR_APM=''
-    fi
-
-    ###
     # Finally, the prompt.
 
     PROMPT='$PR_SET_CHARSET$PR_STITLE${(e)PR_TITLEBAR}\
@@ -237,4 +211,3 @@ $PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_NO_COLOUR '
 }
 
 setprompt
-
